@@ -8,7 +8,7 @@ import java.text.DateFormat
 
 @Entity(tableName = "taskTable")
 @Parcelize
-private data class Task(
+public data class Task(
     val name: String,
     val isImportant: Boolean = false,
     val isCompleted: Boolean = false,
