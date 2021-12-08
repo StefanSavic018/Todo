@@ -6,8 +6,17 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TaskDao {
 
-    @Query("SELECT * FROM taskTable WHERE name LIKE '%' || :searchQuery || '%' ORDER BY isImportant DESC")
-    fun getTasks(searchQuery: String): Flow<List<Task>>
+    fun getTasks(query: String, sortOrder: SortOrder, hideCompleted: Boolean) : Flow<List<Task>> =
+        when (sortOrder) {
+            SortOrder.BY_DATE -> getTasksSortedByDateCreated(query, hideCompleted)
+            SortOrder.BY_NAME -> getTasksSortedByName(query, hideCompleted)
+        }
+
+    @Query("SELECT * FROM taskTable WHERE (isCompleted != :hideCompleted OR isCompleted = 0) AND name LIKE '%' || :searchQuery || '%' ORDER BY isImportant DESC, name")
+    fun getTasksSortedByName(searchQuery: String, hideCompleted: Boolean): Flow<List<Task>>
+
+    @Query("SELECT * FROM taskTable WHERE (isCompleted != :hideCompleted OR isCompleted = 0) AND name LIKE '%' || :searchQuery || '%' ORDER BY isImportant DESC, dateCreated")
+    fun getTasksSortedByDateCreated(searchQuery: String, hideCompleted: Boolean): Flow<List<Task>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(task: Task)
