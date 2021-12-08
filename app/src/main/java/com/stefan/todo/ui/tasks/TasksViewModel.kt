@@ -11,12 +11,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import com.stefan.todo.data.Task
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 
 @HiltViewModel
 class TasksViewModel  @Inject constructor(
     private val taskDao: TaskDao
 ) : ViewModel() {
-    val tasks = taskDao.getTasks().asLiveData()
+    val searchQuery = MutableStateFlow("")
+    private val taskFlow = searchQuery.flatMapLatest {
+        taskDao.getTasks(it)
+    }
+    val tasks = taskFlow.asLiveData()
 
 
 }
