@@ -7,6 +7,8 @@ import javax.inject.Inject
 import com.stefan.todo.data.PreferencesManager
 import com.stefan.todo.data.SortOrder
 import com.stefan.todo.data.Task
+import com.stefan.todo.ui.ADD_TASK_RESULT_OK
+import com.stefan.todo.ui.EDIT_TASK_RESULT_OK
 import dagger.assisted.Assisted
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -75,11 +77,23 @@ class TasksViewModel  @Inject constructor(
         object NavigateToAddTaskScreen : TasksEvent()
         data class  NavigateToEditTaskScreen(val task: Task) : TasksEvent()
         data class ShowUndoDeleteTaskMessage(val task: Task) : TasksEvent()
+        data class ShowTaskSavedConfirmationMessage(val msg: String) : TasksEvent()
     }
 
 //    add new task button
     fun onAddNewTaskClick() = viewModelScope.launch {
         tasksEventChannel.send(TasksEvent.NavigateToAddTaskScreen)
+    }
+
+    fun onAddEditResult(result: Int) {
+        when (result) {
+            ADD_TASK_RESULT_OK -> showTaskSavedConfirmationMessage("Task added")
+            EDIT_TASK_RESULT_OK -> showTaskSavedConfirmationMessage("Task updated")
+        }
+    }
+
+    private fun showTaskSavedConfirmationMessage(text: String) = viewModelScope.launch {
+        tasksEventChannel.send(TasksEvent.ShowTaskSavedConfirmationMessage(text))
     }
 
 }
