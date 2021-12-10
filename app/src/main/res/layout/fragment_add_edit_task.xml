@@ -18,21 +18,25 @@
             android:layout_height="wrap_content"
             android:hint="Task name"
             android:inputType="text"
-            android:textColorHint="@color/white"/>
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="16sp"/>
 
         <CheckBox
             android:id="@+id/checkBox_important"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Important task"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/textView_dateCreated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date Created: "
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
 
 
     </LinearLayout>
