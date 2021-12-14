@@ -28,7 +28,7 @@ class TasksViewModel  @Inject constructor(
 
 
 //    val searchQuery = MutableStateFlow("")
-//    val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
+//    val sortOrder = MutableStateFlow(SortOrder.BY_DATE_ASC)
 //    val hideCompleted = MutableStateFlow(false)
 
     val preferencesFlow = preferencesManager.preferencesFlow
@@ -75,7 +75,7 @@ class TasksViewModel  @Inject constructor(
 
     sealed class TasksEvent {
         object NavigateToAddTaskScreen : TasksEvent()
-        data class  NavigateToEditTaskScreen(val task: Task) : TasksEvent()
+        data class NavigateToEditTaskScreen(val task: Task) : TasksEvent()
         data class ShowUndoDeleteTaskMessage(val task: Task) : TasksEvent()
         data class ShowTaskSavedConfirmationMessage(val msg: String) : TasksEvent()
         object NavigateToDeleteAllCompletedScreen : TasksEvent()

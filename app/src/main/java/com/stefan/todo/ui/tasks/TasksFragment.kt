@@ -139,14 +139,20 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
         }
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.actionSortByName -> {
                 viewModel.onSortOrderSelected(SortOrder.BY_NAME)
                 true
             }
-            R.id.actionSortByDateCreated -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_DATE)
+            R.id.actionSortByDateCreatedASC -> {
+                viewModel.onSortOrderSelected(SortOrder.BY_DATE_ASC)
+                true
+            }
+            R.id.actionSortByDateCreatedDESC -> {
+                viewModel.onSortOrderSelected(SortOrder.BY_DATE_DESC)
                 true
             }
             R.id.actionHideCompletedTasks -> {

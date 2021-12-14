@@ -20,8 +20,11 @@
                 android:id="@+id/actionSortByName"
                 android:title="Sort by name" />
             <item
-                android:id="@+id/actionSortByDateCreated"
-                android:title="Sort by date created" />
+                android:id="@+id/actionSortByDateCreatedASC"
+                android:title="Sort by date created(ASC)" />
+            <item
+                android:id="@+id/actionSortByDateCreatedDESC"
+                android:title="Sort by date created(DESC)" />
         </menu>
     </item>
 
